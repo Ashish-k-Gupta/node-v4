@@ -3,6 +3,7 @@ import router from './router';
 import morgan from 'morgan'
 import cors from 'cors'
 import { protect } from './modules/auth';
+import { createNewUser, signin } from './handlers/user';
 const app = express();
 
 interface CustomRequest  extends Request{
@@ -26,11 +27,12 @@ app.get('/', (req: Request, res: Response)=>{
     res.status(200)
 })
 
-app.get('/private',  (req,res) =>{
+app.get('/private', (req,res) =>{
     res.json({message: "This is a protected route"})
 })
 
 
-app.use('/api', router);
-
+app.use('/api',protect, router);
+app.post('/user', createNewUser)
+app.post('/signin', signin)
 export default app;
