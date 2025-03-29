@@ -1,12 +1,8 @@
 {
-    "compilerOptions": {
-      "sourceMap": true,
-      "outDir": "dist",
-      "lib": ["esnext"],
-      "esModuleInterop": true,
-      "strict": true,
-      "typeRoots": ["./src"],  // Ensure TypeScript looks for type definitions
-      "types": ["node", "express"]
-    }
+  "compilerOptions": {
+    "sourceMap": true,
+    "outDir": "dist",
+    "lib": ["esnext"],
+    "esModuleInterop": true
   }
-  
+}
