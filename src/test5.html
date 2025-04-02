@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-400: #ced4da;
+            --gray-500: #adb5bd;
+            --gray-600: #6c757d;
+            --gray-700: #495057;
+            --gray-800: #343a40;
+            --gray-900: #212529;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #ffffff;
+            color: var(--gray-800);
+        }
+
+        .load-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .load-table thead th {
+            color: var(--gray-600);
+            font-size: 12px;
+            font-weight: 500;
+            padding: 10px 16px;
+            background-color: var(--gray-100);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            border-top: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .load-table thead th:first-child {
+            border-top-left-radius: 6px;
+            border-left: 1px solid var(--gray-200);
+        }
+
+        .load-table thead th:last-child {
+            border-top-right-radius: 6px;
+            border-right: 1px solid var(--gray-200);
+        }
+
+        .load-table tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        .load-table tbody tr:hover {
+            background-color: var(--gray-100);
+        }
+
+        .load-table tbody td {
+            padding: 16px;
+            border-bottom: 1px solid var(--gray-200);
+            vertical-align: middle;
+            font-size: 14px;
+        }
+
+        .load-number {
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .entity-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .entity-id {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .entity-name {
+            font-size: 12px;
+            color: var(--gray-600);
+        }
+
+        .location-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .location-city {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .location-date {
+            font-size: 12px;
+            color: var(--gray-600);
+        }
+
+        .status-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-booked .status-indicator {
+            background-color: #6c757d;
+        }
+
+        .status-enroute .status-indicator {
+            background-color: #0d6efd;
+        }
+
+        .status-delivered .status-indicator {
+            background-color: #20c997;
+        }
+
+        .status-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .status-note {
+            font-size: 12px;
+            color: var(--gray-600);
+            margin-top: 2px;
+        }
+
+        .stop-indicators {
+            display: flex;
+            gap: 4px;
+        }
+
+        .stop-circle {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .stop-pickup {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .stop-dropoff {
+            background-color: #cfe2ff;
+            color: #084298;
+        }
+
+        .trailer-type {
+            font-size: 13px;
+            padding: 4px 8px;
+            background-color: var(--gray-100);
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .rate-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rate-total {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .rate-mile {
+            font-size: 12px;
+            color: var(--gray-600);
+        }
+
+        /* Check Call Button Styles */
+        .check-call-wrapper {
+            position: relative;
+        }
+
+        .check-call-btn {
+            background-color: white;
+            border: 1px solid #0d6efd;
+            color: #0d6efd;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .check-call-btn:hover {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        .check-call-time {
+            position: absolute;
+            right: -8px;
+            bottom: -8px;
+            font-weight: 500;
+            padding: 1px 6px;
+            font-size: 11px;
+            border-radius: 10px;
+            z-index: 5;
+            white-space: nowrap;
+        }
+
+        .time-recent {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #20c997;
+        }
+
+        .time-moderate {
+            background-color: #fff3cd;
+            color: #664d03;
+            border: 1px solid #ffca2c;
+        }
+
+        .time-old {
+            background-color: #f8d7da;
+            color: #842029;
+            border: 1px solid #dc3545;
+        }
+
+        .last-location-container {
+            max-width: 180px;
+        }
+
+        .location-text {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .location-ago {
+            font-size: 12px;
+            color: var(--gray-600);
+            margin-top: 2px;
+        }
+
+        .action-button {
+            color: var(--gray-600);
+            background: transparent;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .action-button:hover {
+            background-color: var(--gray-200);
+            color: var(--gray-800);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid p-4">
+        <h4 class="mb-4">Load Board</h4>
+
+        <table class="load-table">
+            <thead>
+                <tr>
+                    <th>Load No.</th>
+                    <th>Customer</th>
+                    <th>Truck</th>
+                    <th>Trailer</th>
+                    <th>Pickup</th>
+                    <th>Drop</th>
+                    <th>Stops</th>
+                    <th>Rate</th>
+                    <th>Status</th>
+                    <th>Auto Status</th>
+                    <th>Check Call</th>
+                    <th>Last Location</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="load-number">1002</span></td>
+                    <td>
+                        <div class="entity-details">
+                            <span class="entity-id">12345</span>
+                            <span class="entity-name">CH Robinson</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="entity-details">
+                            <span class="entity-id">5120</span>
+                            <span class="entity-name">Kanye West</span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="trailer-type">32°F CONT</span>
+                    </td>
+                    <td>
+                        <div class="location-info">
+                            <span class="location-city">Oxnard, CA</span>
+                            <span class="location-date">Mar 28</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="location-info">
+                            <span class="location-city">Chester, NY</span>
+                            <span class="location-date">Apr 2</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="mb-1">3 stops</div>
+                        <div class="stop-indicators">
+                            <span class="stop-circle stop-pickup">P</span>
+                            <span class="stop-circle stop-dropoff">D</span>
+                            <span class="stop-circle stop-dropoff">D</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rate-container">
+                            <span class="rate-total">$5,600.00</span>
+                            <span class="rate-mile">$56.00</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="status-container">
+                            <span class="status-indicator"></span>
+                            <div>
+                                <div class="status-text status-delivered">Delivered</div>
+                                <div class="status-note text-danger">Truck Breakdown</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="status-text">Delivered</div>
+                    </td>
+                    <td>
+                        <div class="check-call-wrapper">
+                            <button class="check-call-btn">CHECK CALL</button>
+                            <span class="check-call-time time-moderate">12h ago</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="last-location-container">
+                            <div class="location-text">—</div>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="action-button">⋮</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
