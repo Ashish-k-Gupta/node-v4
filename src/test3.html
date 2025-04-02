@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f5f7fa;
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    }
+    .load-card {
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 16px;
+      transition: all 0.2s;
+      border-left: 5px solid #dee2e6;
+    }
+    .load-card:hover {
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+    .load-card.active {
+      border-left-color: #0d6efd;
+    }
+    .load-card.warning {
+      border-left-color: #ffc107;
+    }
+    .load-card.success {
+      border-left-color: #20c997;
+    }
+    .load-card.danger {
+      border-left-color: #dc3545;
+    }
+    .load-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid #e9ecef;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .load-id {
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .load-status {
+      display: flex;
+      align-items: center;
+    }
+    .status-badge {
+      padding: 4px 10px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .status-badge.booked {
+      background-color: #e9ecef;
+      color: #495057;
+    }
+    .status-badge.delivered {
+      background-color: #d1e7dd;
+      color: #0f5132;
+    }
+    .load-body {
+      padding: 16px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+    }
+    .load-info {
+      margin-bottom: 8px;
+    }
+    .info-label {
+      font-size: 12px;
+      color: #6c757d;
+      margin-bottom: 4px;
+    }
+    .info-value {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .info-subtitle {
+      font-size: 12px;
+      color: #6c757d;
+    }
+    .route-info {
+      grid-column: span 2;
+    }
+    .check-call-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .check-call-btn {
+      background-color: #0d6efd;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+    }
+    .check-time {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      color: #495057;
+      background-color: #f1f3f5;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    .check-time-recent {
+      color: #0d6efd;
+    }
+    .check-time-warning {
+      color: #fd7e14;
+    }
+    .check-time-danger {
+      color: #dc3545;
+    }
+    .clock-icon {
+      margin-right: 4px;
+      font-size: 10px;
+    }
+    .stops-container {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 6px;
+    }
+    .stop-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 600;
+    }
+    .p-dot {
+      background-color: #d1e7dd;
+      color: #0f5132;
+    }
+    .d-dot {
+      background-color: #cfe2ff;
+      color: #084298;
+    }
+    .actions-dropdown {
+      background: transparent;
+      border: none;
+      color: #6c757d;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid py-4">
+    <div class="row mb-4">
+      <div class="col">
+        <h4>Load Board</h4>
+      </div>
+    </div>
+
+    <!-- Load Card 1 -->
+    <div class="card load-card active">
+      <div class="load-header">
+        <div class="load-id">Load #1001</div>
+        <div class="load-status">
+          <div class="status-badge booked me-2">Booked</div>
+          <span class="text-muted small me-3">Traffic</span>
+          <button class="actions-dropdown">⋮</button>
+        </div>
+      </div>
+      <div class="load-body">
+        <div class="load-info">
+          <div class="info-label">Customer</div>
+          <div class="info-value">24385</div>
+          <div class="info-subtitle">CH Robinson</div>
+        </div>
+        <div class="load-info">
+          <div class="info-label">Truck</div>
+          <div class="info-value">5145</div>
+          <div class="info-subtitle">Jagdeep Gill</div>
+        </div>
+        <div class="load-info">
+          <div class="info-label">Trailer</div>
+          <div class="info-value">34°F CONT</div>
+        </div>
+        <div class="load-info route-info">
+          <div class="info-label">Route</div>
+          <div class="d-flex justify-content-between">
+            <div>
+              <div class="info-value">Holtville, CA</div>
+              <div class="info-subtitle">Mar 24</div>
+            </div>
+            <div class="text-center px-3">→</div>
+            <div>
+              <div class="info-value">Henderson, NC</div>
+              <div class="info-subtitle">Mar 31</div>
+            </div>
+          </div>
+          <div class="stops-container mt-2">
+            <div class="small text-muted me-2">2 stops:</div>
+            <div class="stop-dot p-dot">P</div>
+            <div class="stop-dot d-dot">D</div>
+          </div>
+        </div>
+        <div class="load-info">
+          <div class="info-label">Rate</div>
+          <div class="info-value">$5,300.00</div>
+          <div class="info-subtitle">$53.00</div>
+        </div>
+        <div class="load-info">
+          <div class="info-label">Auto Status</div>
+          <div class="info-value">Assigned</div>
+        </div>
+        <div class="load-info">
+          <div class="info-label">Check Call</div>
+          <div class="check-call-container">
+            <button class="check-call-btn">CHECK CALL</button>
+            <div class="check-time check-time-warning">
+              <span class="clock-icon">⏱</span> 6h ago
+            </div>
+          </div>
+        </div>
+        <div class="load-info">
+          <div class="info-label">Last Location</div>
+          <div class="info-value">Enos Lane, Kern County, CA</div>
+          <div class="info-subtitle">29h 9m ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

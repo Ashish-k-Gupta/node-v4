@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .load-table {
+            font-size: 14px;
+        }
+
+        .load-table th {
+            font-weight: 600;
+            background-color: #f8f9fa;
+        }
+
+        .check-call-btn {
+            background-color: #0d6efd;
+            border: none;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            min-width: 90px;
+        }
+
+        .time-badge {
+            font-size: 11px;
+            background-color: #e9ecef;
+            color: #495057;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+
+        .status-pill {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .booked {
+            background-color: #f8f9fa;
+            color: #495057;
+        }
+
+        .delivered {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .warning {
+            color: #CC9900;
+        }
+
+        .stop-circle {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            line-height: 22px;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 2px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .p-circle {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .d-circle {
+            background-color: #cfe2ff;
+            color: #084298;
+        }
+
+        tr.alert-row {
+            background-color: #fff3cd;
+        }
+
+        tr.success-row {
+            background-color: #f0f8f1;
+        }
+
+        tr.problem-row {
+            background-color: #ffe8e8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid p-3">
+        <table class="table table-hover load-table align-middle">
+            <thead>
+                <tr>
+                    <th>Load No.</th>
+                    <th>Customer</th>
+                    <th>Truck</th>
+                    <th>Trailer</th>
+                    <th>Pickup</th>
+                    <th>Drop</th>
+                    <th>Stops</th>
+                    <th>Rate</th>
+                    <th>Status</th>
+                    <th>Auto Status</th>
+                    <th>Check Call</th>
+                    <th>Last Location</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1001</td>
+                    <td>
+                        <div>24385</div>
+                        <small class="text-muted">CH Robinson</small>
+                    </td>
+                    <td>
+                        <div>5145</div>
+                        <small class="text-muted">Jagdeep Gill</small>
+                    </td>
+                    <td>34°F CONT</td>
+                    <td>
+                        <div>Holtville, CA</div>
+                        <small class="text-muted">Mar 24</small>
+                    </td>
+                    <td>
+                        <div>Henderson, NC</div>
+                        <small class="text-muted">Mar 31</small>
+                    </td>
+                    <td>
+                        <div>2 stops</div>
+                        <div>
+                            <span class="stop-circle p-circle">P</span>
+                            <span class="stop-circle d-circle">D</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>$5,300.00</div>
+                        <small class="text-muted">$53.00</small>
+                    </td>
+                    <td>
+                        <span class="status-pill booked">Booked</span>
+                        <div class="small text-muted mt-1">Traffic</div>
+                    </td>
+                    <td><span class="badge bg-secondary">Assigned</span></td>
+                    <td>
+                        <button class="check-call-btn">CHECK CALL</button>
+                        <span class="time-badge">6h ago</span>
+                    </td>
+                    <td>
+                        <div>Enos Lane, Kern County, CA</div>
+                        <small class="text-muted">29h 9m ago</small>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-light"><i class="bi bi-three-dots"></i></button>
+                    </td>
+                </tr>
+                <tr class="problem-row">
+                    <td>1002</td>
+                    <td>
+                        <div>12345</div>
+                        <small class="text-muted">CH Robinson</small>
+                    </td>
+                    <td>
+                        <div>5120</div>
+                        <small class="text-muted">Kanye West</small>
+                    </td>
+                    <td>32°F CONT</td>
+                    <td>
+                        <div>Oxnard, CA</div>
+                        <small class="text-muted">Mar 28</small>
+                    </td>
+                    <td>
+                        <div>Chester, NY</div>
+                        <small class="text-muted">Apr 2</small>
+                    </td>
+                    <td>
+                        <div>3 stops</div>
+                        <div>
+                            <span class="stop-circle p-circle">P</span>
+                            <span class="stop-circle d-circle">D</span>
+                            <span class="stop-circle d-circle">D</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>$5,600.00</div>
+                        <small class="text-muted">$56.00</small>
+                    </td>
+                    <td>
+                        <span class="status-pill delivered">Delivered</span>
+                        <div class="small text-danger mt-1">Truck Breakdown</div>
+                    </td>
+                    <td><span class="badge bg-success">Delivered</span></td>
+                    <td>
+                        <button class="check-call-btn">CHECK CALL</button>
+                        <span class="time-badge">12h ago</span>
+                    </td>
+                    <td>-</td>
+                    <td>
+                        <button class="btn btn-sm btn-light"><i class="bi bi-three-dots"></i></button>
+                    </td>
+                </tr>
+                <tr class="success-row">
+                    <td>1003</td>
+                    <td>
+                        <div>5748652</div>
+                        <small class="text-muted">CH Robinson</small>
+                    </td>
+                    <td>
+                        <div>5147</div>
+                        <small class="text-muted">Travis Scott</small>
+                    </td>
+                    <td>22°F CONT</td>
+                    <td>
+                        <div>Ontario, CA</div>
+                        <small class="text-muted">Mar 29</small>
+                    </td>
+                    <td>
+                        <div>Howard County, MD</div>
+                        <small class="text-muted">Apr 2</small>
+                    </td>
+                    <td>
+                        <div>3 stops</div>
+                        <div>
+                            <span class="stop-circle p-circle">P</span>
+                            <span class="stop-circle d-circle">D</span>
+                            <span class="stop-circle d-circle">D</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>$7,800.00</div>
+                        <small class="text-muted">$78.00</small>
+                    </td>
+                    <td>
+                        <span class="status-pill booked">Booked</span>
+                        <div class="small text-success mt-1">Early</div>
+                    </td>
+                    <td><span class="badge bg-info text-dark">At Shipper</span></td>
+                    <td>
+                        <button class="check-call-btn">CHECK CALL</button>
+                        <span class="time-badge">2h ago</span>
+                    </td>
+                    <td>
+                        <div>Edwardsville Road, Troy, IL, 62294</div>
+                        <small class="text-muted">0h 12m ago</small>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-light"><i class="bi bi-three-dots"></i></button>
+                    </td>
+                </tr>
+                <tr class="alert-row">
+                    <td>1004</td>
+                    <td>
+                        <div>123467</div>
+                        <small class="text-muted">CH Robinson</small>
+                    </td>
+                    <td>
+                        <div>5120</div>
+                        <small class="text-muted">Kanye West</small>
+                    </td>
+                    <td>Dry Van</td>
+                    <td>
+                        <div>Sparks, NV</div>
+                        <small class="text-muted">Mar 28</small>
+                    </td>
+                    <td>
+                        <div>Howard County, MD</div>
+                        <small class="text-muted">Apr 2</small>
+                    </td>
+                    <td>
+                        <div>4 stops</div>
+                        <div>
+                            <span class="stop-circle p-circle">P</span>
+                            <span class="stop-circle d-circle">D</span>
+                            <span class="stop-circle d-circle">D</span>
+                            <span class="stop-circle d-circle">D</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div>$8,000.00</div>
+                        <small class="text-muted">$80.00</small>
+                    </td>
+                    <td>
+                        <span class="status-pill booked">Booked</span>
+                        <div class="small warning mt-1"><i class="bi bi-clock"></i> Check needed</div>
+                    </td>
+                    <td><span class="badge bg-secondary">Assigned</span></td>
+                    <td>
+                        <button class="check-call-btn">CHECK CALL</button>
+                        <span class="time-badge warning">24h+ ago</span>
+                    </td>
+                    <td>-</td>
+                    <td>
+                        <button class="btn btn-sm btn-light"><i class="bi bi-three-dots"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
