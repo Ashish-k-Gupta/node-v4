@@ -26,9 +26,9 @@ model User {
   username  String    @unique
   password  String
   products  Product[]
-}
+ }
 
-model Update {
+model Update { 
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
