@@ -1,21 +1,20 @@
-import { Router, Request, Response } from "express";
-import { body, validationResult } from "express-validator";
+import { Router } from "express";
+import { body } from "express-validator";
 import { handleInputErrors } from "./modules/middleware";
+import {  createProduct, getProducts } from "./handlers/product";
 
 const router = Router();
 
-interface CustomRequest extends Request {
-    shh_secret?: string;
-}
+// interface CustomRequest extends Request {
+//     shh_secret?: string;
+// }
 
-router.get('/product', (req: CustomRequest, res: Response) => {
-    res.json({ message: req.shh_secret });
-});
-router.get('/product/:id', () => { })
+router.get('/product', getProducts)
 router.put('/product/:id',body('name').isString(), handleInputErrors ,(req, res) => { 
-    
+
 })
-router.post('/product',[body('name').isString(), body('belongsToId').isString()], handleInputErrors ,(req, res) => {})
+router.post('/product',[body('name').isString()], handleInputErrors ,createProduct)
+
 router.delete('/product/:id', () => { })
 
 
