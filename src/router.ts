@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { body } from "express-validator";
 import { handleInputErrors } from "./modules/middleware";
-import {  createProduct, getProducts } from "./handlers/product";
+import {  createProduct, deleteProduct, getOneProduct, getProducts } from "./handlers/product";
 
 const router = Router();
 
@@ -10,16 +10,15 @@ const router = Router();
 // }
 
 router.get('/product', getProducts)
-router.put('/product/:id',body('name').isString(), handleInputErrors ,(req, res) => { 
-
-})
+router.get('/product/:id', getOneProduct)
+router.put('/product/:id',body('name').isString(), handleInputErrors)
 router.post('/product',[body('name').isString()], handleInputErrors ,createProduct)
 
-router.delete('/product/:id', () => { })
+router.delete('/product/:id', deleteProduct)
 
 
 router.get('/update', () => { })
-router.get('/update/:id', () => { })
+router.get('/update/:id', getOneProduct)
 
 
 router.put('/update/:id', 
@@ -31,9 +30,10 @@ router.put('/update/:id',
 
 
 router.post('/update', 
-    body('title').exists(),
-    body('body').exists(),
-    body('status').isIn(['IN_PROGESS', 'LIVE', 'DEPRECATED', 'ARCHIVED']).exists(),
+    body('title').exists().isString(),
+    body('body').exists().isString(),
+    body('productId').exists().isString(),
+    body('status').isIn(['IN_PROGESS', 'LIVE', 'DEPRECATED', 'ARCHIVED']).optional(),
     body('version').exists(), 
     () => { })
 

@@ -62,7 +62,7 @@ model Product {
   name        String
   belongsToId String
   belongsTo   User     @relation(fields: [belongsToId], references: [id])
-  Updates     Update[]
+  updates     Update[]
 
   @@unique([id, belongsToId])
 }
