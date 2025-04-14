@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }))
 
 
 app.get('/', (req: Request, res: Response) => {
-    res.status(200).send("Hello, TypeScript with Express");
+    res.status(200).json({message: "hello"});
     console.log('Hello from express')
 
 })

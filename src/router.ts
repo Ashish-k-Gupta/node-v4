@@ -2,7 +2,7 @@ import { Router } from "express";
 import { body } from "express-validator";
 import { handleInputErrors } from "./modules/middleware";
 import {  createProduct, deleteProduct, getOneProduct, getProducts } from "./handlers/product";
-import { getUpdates, createUpdate, updatedUpdate, deleteUpdates } from "./handlers/test";
+import { getUpdates, createUpdate, updatedUpdate, deleteUpdates } from "./handlers/update";
 
 const router = Router();
 

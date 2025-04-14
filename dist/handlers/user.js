@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
-    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -38,17 +38,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.signin = exports.createNewUser = void 0;
+var client_1 = require("@prisma/client");
 var db_1 = __importDefault(require("../db"));
 var auth_1 = require("../modules/auth");
-var createNewUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, _a, _b, token;
+var createNewUser = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, _a, _b, token, e_1;
     var _c, _d;
     return __generator(this, function (_e) {
         switch (_e.label) {
             case 0:
-                _b = (_a = db_1.default.user).create;
+                _e.trys.push([0, 3, , 4]);
+                _b = (_a = db_1["default"].user).create;
                 _c = {};
                 _d = {
                     username: req.body.username
@@ -61,7 +63,16 @@ var createNewUser = function (req, res) { return __awaiter(void 0, void 0, void 
                 user = _e.sent();
                 token = (0, auth_1.createJWT)(user);
                 res.json({ token: token });
-                return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 3:
+                e_1 = _e.sent();
+                if (e_1 instanceof client_1.Prisma.PrismaClientKnownRequestError && e_1.code === 'P2002') {
+                    return [2 /*return*/, res.status(409).json({ message: "Username already exists" })];
+                }
+                console.log(e_1);
+                next(e_1);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
@@ -70,7 +81,7 @@ var signin = function (req, res) { return __awaiter(void 0, void 0, void 0, func
     var user, isValid, token;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db_1.default.user.findUnique({
+            case 0: return [4 /*yield*/, db_1["default"].user.findUnique({
                     where: {
                         username: req.body.username
                     }
