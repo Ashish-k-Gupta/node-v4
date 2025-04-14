@@ -2,12 +2,10 @@ import { Router } from "express";
 import { body } from "express-validator";
 import { handleInputErrors } from "./modules/middleware";
 import {  createProduct, deleteProduct, getOneProduct, getProducts } from "./handlers/product";
+import { getUpdates, createUpdate, updatedUpdate, deleteUpdates } from "./handlers/test";
 
 const router = Router();
 
-// interface CustomRequest extends Request {
-//     shh_secret?: string;
-// }
 
 router.get('/product', getProducts)
 router.get('/product/:id', getOneProduct)
@@ -17,28 +15,29 @@ router.post('/product',[body('name').isString()], handleInputErrors ,createProdu
 router.delete('/product/:id', deleteProduct)
 
 
-router.get('/update', () => { })
+router.get('/update', getUpdates)
 router.get('/update/:id', getOneProduct)
 
 
 router.put('/update/:id', 
     body('title').optional(),
     body('body').optional(),
-    body('status').isIn(['IN_PROGESS', 'LIVE', 'DEPRECATED', 'ARCHIVED']).optional(),
+    body('status').isIn(['IN_PROGRESS', 'LIVE', 'DEPRECATED', 'ARCHIVED']).optional(),
     body('version').optional(), 
-    () => { })
+    body('asset').optional().isString(),
+    updatedUpdate)
 
 
 router.post('/update', 
     body('title').exists().isString(),
     body('body').exists().isString(),
     body('productId').exists().isString(),
-    body('status').isIn(['IN_PROGESS', 'LIVE', 'DEPRECATED', 'ARCHIVED']).optional(),
-    body('version').exists(), 
-    () => { })
+    body('status').isIn(['IN_PROGRESS', 'LIVE', 'DEPRECATED', 'ARCHIVED']).optional(),
+    body('version').optional().isNumeric(), 
+   createUpdate)
 
      
-router.delete('/update/:id', () => { })
+router.delete('/update/:id', deleteUpdates)
 
 router.get('/updatepoint', () => { })
 router.get('/updatepoint/:id', () => { })
@@ -52,5 +51,10 @@ router.post('/updatepoint',
     body('updateId').exists().isString(),
     () => { })
 router.delete('/updatepoint/:id', () => { })
+
+router.use((err, req, res, next) =>{
+    console.log(err)
+    res.json({message: "In route error"})
+})
 
 export default router;

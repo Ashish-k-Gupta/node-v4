@@ -28,6 +28,17 @@ model User {
   products  Product[]
 }
 
+model Product {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  name        String   @db.VarChar(255)
+  belongsToId String
+  belongsTo   User     @relation(fields: [belongsToId], references: [id])
+  updates     Update[]
+
+  @@unique([id, belongsToId])
+}
+
 model Update {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
@@ -36,7 +47,7 @@ model Update {
   title   String        @db.VarChar(255)
   body    String
   status  UPDATE_STATUS @default(IN_PROGRESS)
-  version String?
+  version Float?
   asset   String?
 
   productId   String
@@ -54,15 +65,4 @@ model UpdatePoint {
 
   updateId String
   update   Update @relation(fields: [updateId], references: [id])
-}
-
-model Product {
-  id          String   @id @default(uuid())
-  createdAt   DateTime @default(now())
-  name        String
-  belongsToId String
-  belongsTo   User     @relation(fields: [belongsToId], references: [id])
-  updates     Update[]
-
-  @@unique([id, belongsToId])
 }

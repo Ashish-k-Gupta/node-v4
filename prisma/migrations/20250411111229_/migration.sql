@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Update" ALTER COLUMN "version" SET DATA TYPE DOUBLE PRECISION;
